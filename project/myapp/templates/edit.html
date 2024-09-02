@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="{% static 'styleEdit.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit User</h1>
+        <form action="{% url 'edit_user' data.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ data.username }}" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ data.name }}" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" value="{{ data.password }}" placeholder="Password" required>
+                <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
+            </div>
+            <button type="submit" class="btn">Save</button>
+        </form>
+        <a href="{% url 'home' %}" class="back-link">Back to list</a>
+    </div>
+    
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var showPassword = document.getElementById("show-password");
+            if (showPassword.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>
